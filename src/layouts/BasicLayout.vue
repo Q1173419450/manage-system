@@ -1,8 +1,9 @@
 <template>
   <div>
-    <a-layout id="components-layout-demo-side" style="min-height: 100vh">
+    <a-layout :class="['layout', device]">
       <a-drawer
         placement="left"
+        v-if="isMobile()"
         :wrapClassName="`drawer-sider ${navTheme}`"
         :closable="false"
         :visible="collapsed"
@@ -18,10 +19,24 @@
         ></sider-menu>
       </a-drawer>
 
+      <sider-menu
+        v-else-if="isSideMenu()"
+        mode="inline"
+        :menus="menus"
+        :theme="navTheme"
+        :collapsed="collapsed"
+        :collapsible="true"
+      ></sider-menu>
+
       <a-layout>
-        <a-layout-header style="background: #fff; padding: 0" >
-          <GlobalHeader />
-        </a-layout-header>
+          <GlobalHeader
+            :mode="layoutMode"
+            :menus="menus"
+            :theme="navTheme"
+            :collapsed="collapsed"
+            :device="device"
+            @toggle="toggle"
+          />
 
         <!-- contnet -->
         <a-layout-content style="margin: 0 16px">
@@ -40,7 +55,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { triggerWindowResizeEvent } from '@/utils/util'
+import { mapState, mapActions } from 'vuex'
 import { mixin, mixinDevice } from '@/utils/mixin'
 import config from '@/config/defaultSetting'
 
@@ -76,6 +92,15 @@ export default {
     })
   },
   methods: {
+    ...mapActions(['setSidebar']),
+    /**
+     * 侧边栏显示或隐藏
+     */
+    toggle () {
+      this.collapsed = !this.collapsed
+      this.setSidebar(!this.collapsed)
+      triggerWindowResizeEvent()
+    },
     menuSelect () {
       if (!this.isDesktop()) {
         this.collapsed = false

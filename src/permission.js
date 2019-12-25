@@ -29,11 +29,11 @@ router.beforeEach((to, from, next) => {
             console.log(store.getters.addRouters)
             const redirect = decodeURIComponent(from.query.redirect || to.path)
             console.log(redirect)
-            // if (to.path === redirect) {
-            //   next({ ...to, replace: true })
-            // } else {
-            next({ path: redirect })
-            // }
+            if (to.path === redirect) {
+              next({ path: redirect })
+            } else {
+              next({ path: redirect })
+            }
           })
         }).catch(() => {
           notification.error({
