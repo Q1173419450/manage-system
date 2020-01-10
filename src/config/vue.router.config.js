@@ -7,7 +7,6 @@ export const asyncRouterMap = [
   {
     path: '/',
     meta: { title: '首页', roles: 'admin' },
-    // component: () => import(/* webpackChunkName: 'BasicLayout' */'../layouts/BasicLayout'),
     component: () => import(/* webpackChunkName: 'BasicLayout'  */'../layouts/BasicLayout'),
     redirect: '/dashboard/workplace',
     children: [
@@ -37,14 +36,65 @@ export const asyncRouterMap = [
             meta: { title: '工作台', keepAlive: true, roles: 'admin' }
           }
         ]
+      },
+      {
+        path: '/account',
+        name: 'account',
+        redirect: '/account/center',
+        component: { render: h => h('router-view') },
+        meta: { title: '个人页', icon: 'user', keepAlive: true, roles: 'admin' },
+        children: [
+          {
+            path: '/account/center',
+            name: 'center',
+            component: () => import('../views/Account/Center/Index'),
+            meta: { title: '个人中心', keepAlive: true, roles: 'admin' }
+          },
+          {
+            path: '/account/settings',
+            name: 'settings',
+            component: () => import('../views/Account/Settings/Index'),
+            // redirect: '/account/settings/base',
+            meta: { title: '个人设置', hideHeader: true, roles: 'admin' }
+            // hideChildrenInMenu: true,
+            // children: [
+            //   {
+            //     path: '/account/settings/base',
+            //     name: 'BaseSettings',
+
+            //   }
+            // ]
+          }
+        ]
+      },
+      { // other
+        path: '/other',
+        name: 'otherPage',
+        component: { render: h => h('router-view') },
+        meta: { title: '角色权限', icon: 'slack', roles: 'admin' },
+        redirect: '/other/user-list',
+        children: [
+          {
+            path: '/other/user-list',
+            name: 'UserList',
+            component: () => import('../views/Other/UserList'),
+            meta: { title: '用户列表', roles: 'admin' }
+          },
+          {
+            path: '/other/role-list',
+            name: 'RoleList',
+            component: () => import('../views/Other/RoleList'),
+            meta: { title: '角色列表', roles: 'admin' }
+          },
+          {
+            path: '/other/permission-list',
+            name: 'PermissionList',
+            component: () => import('../views/Other/PermissionList'),
+            meta: { title: '权限列表', roles: 'admin' }
+          }
+        ]
       }
     ]
-  },
-  {
-    path: '*',
-    name: '404',
-    hideInMenu: true,
-    component: NotFound
   }
 ]
 

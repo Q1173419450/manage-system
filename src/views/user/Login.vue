@@ -116,22 +116,22 @@ export default {
           setTimeout(() => {
             state.loginBtn = false
           }, 600)
-          return
+        } else {
+          console.log('login from', values)
+          const loginParams = { ...values }
+          delete loginParams.username
+          loginParams[!state.loginType ? 'email' : 'username'] = values.username
+          // md5加密
+          // loginParams.password = md5(values.password)
+          // console.log(loginParams)
+          // 接口调用
+          Login(loginParams)
+            .then(() => this.loginSuccess())
+            .catch(err => this.requestFailed(err))
+            .finally(() => {
+              state.loginBtn = false
+            })
         }
-        console.log('login from', values)
-        const loginParams = { ...values }
-        delete loginParams.username
-        loginParams[!state.loginType ? 'email' : 'username'] = values.username
-        // md5加密
-        // loginParams.password = md5(values.password)
-        // console.log(loginParams)
-        // 接口调用
-        Login(loginParams)
-          .then(() => this.loginSuccess())
-          .catch(err => this.requestFailed(err))
-          .finally(() => {
-            state.loginBtn = false
-          })
       })
     },
     loginSuccess (res) {

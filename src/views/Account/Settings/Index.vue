@@ -1,0 +1,15 @@
+<template>
+<div>
+  个人设置
+</div>
+</template>
+
+<script>
+export default {
+  name: 'center'
+}
+</script>
+
+<style scoped>
+
+</style>

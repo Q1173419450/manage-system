@@ -30,8 +30,26 @@ npm run lint
 npm run test:unit
 ```
 
-### 使用 vue-cli 搭建
+> 未完待续……
 
-不需要改变配置文件。开箱即用
+### 项目环境
 
-router，将路由拆分出一个配置文件，方便自己进行配置或者改变
+##### 前端
+
+[项目地址](https://github.com/Q1173419450/manage-system)
+
+> vue + vue-router + axios + vuex + jest
+
+##### 后端
+
+> springboot + eureka + feign + hystrix + gateway
+>
+> mybatis + mysql + redis + rocketMQ
+>
+> spring security + oauth2
+>
+> quartz
+
+### 注意事项
+
+> 项目启动前需要在自行初始化数据库表，sql脚本在项目的 resources -> sql

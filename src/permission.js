@@ -24,7 +24,7 @@ router.beforeEach((to, from, next) => {
         store.dispatch('GetInfo').then(res => {
           console.log(res)
           const roles = res.data && res.data.userName
-          store.dispatch('GenerateRoutes', { roles }).then(() => {
+          store.dispatch('GenerateRoutes', { roles }).then((resolve, reject) => {
             router.addRoutes(store.getters.addRouters)
             console.log(store.getters.addRouters)
             const redirect = decodeURIComponent(from.query.redirect || to.path)
@@ -34,6 +34,7 @@ router.beforeEach((to, from, next) => {
             } else {
               next({ path: redirect })
             }
+            resolve()
           })
         }).catch(() => {
           notification.error({
@@ -42,6 +43,8 @@ router.beforeEach((to, from, next) => {
           })
           store.dispatch('Logout').then(() => {
             // query: { redirect: to.fullPath }
+            next({ path: '/user/login' })
+          }).catch(() => {
             next({ path: '/user/login' })
           })
         })

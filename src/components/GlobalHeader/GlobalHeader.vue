@@ -9,6 +9,7 @@
       <div v-if="mode === 'sidemenu'" class="header">
         <a-icon v-if="device==='mobile'" class="trigger" :type="collapsed ? 'menu-fold' : 'menu-unfold'" @click="toggle"/>
         <a-icon v-else class="trigger" :type="collapsed ? 'menu-unfold' : 'menu-fold'" @click="toggle"/>
+        <user-menu></user-menu>
       </div>
     </a-layout-header>
   </div>
@@ -16,11 +17,13 @@
 </template>
 
 <script>
+import UserMenu from '../tools/UserMenu'
 // import Logo from '../tools/Logo'
 import { mixin } from '@/utils/mixin'
 export default {
   name: 'GlobalHeader',
   components: {
+    UserMenu
     // Logo
   },
   mixins: [mixin],

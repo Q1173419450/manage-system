@@ -61,13 +61,17 @@ const permission = {
   },
   actions: {
     GenerateRoutes ({ commit }, data) {
-      return new Promise(resolve => {
-        const { roles } = data
-        const accessedRouters = filterAsyncRouter(asyncRouterMap, roles)
-        console.log('-- GenerateRoutes --')
-        console.log(accessedRouters)
-        commit('SET_ROUTERS', accessedRouters)
-        resolve()
+      return new Promise((resolve, reject) => {
+        try {
+          const { roles } = data
+          const accessedRouters = filterAsyncRouter(asyncRouterMap, roles)
+          console.log('-- GenerateRoutes --')
+          console.log(accessedRouters)
+          commit('SET_ROUTERS', accessedRouters)
+          resolve()
+        } catch (error) {
+          reject(error)
+        }
       })
     }
   }

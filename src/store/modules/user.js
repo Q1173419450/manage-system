@@ -36,6 +36,8 @@ const user = {
   actions: {
     // 登录
     Login ({ commit }, userInfo) {
+      console.log('--------- 登录login 测试 -----------')
+      console.log(commit)
       return new Promise((resolve, reject) => {
         login(userInfo).then((response) => {
           Vue.ls.set(Authorization, `Bearer  ${response.data}`, 7 * 24 * 60 * 60 * 1000)
@@ -70,7 +72,7 @@ const user = {
 
     Logout ({ commit, state }) {
       return new Promise((resolve, reject) => {
-        logout(state.token).then(response => {
+        logout(state.token).then(() => {
           commit('SET_Authorization', '')
           commit('SET_ROLES', [])
           Vue.ls.remove(Authorization)

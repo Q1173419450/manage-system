@@ -31,7 +31,7 @@ const err = (error) => {
       if (token) {
         store.dispatch('Logout').then(() => {
           setTimeout(() => {
-            window.location.reload()
+            window.history.go(0)
           }, 1500)
         })
       }
