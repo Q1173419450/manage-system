@@ -42,6 +42,8 @@ npm run test:unit
 
 ##### 后端
 
+[项目地址](https://github.com/raoxiaosi/rain)
+
 > springboot + eureka + feign + hystrix + gateway
 >
 > mybatis + mysql + redis + rocketMQ
